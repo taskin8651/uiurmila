@@ -408,6 +408,55 @@
         </div>
     </div>
 
+        {{-- CONTACT & SETTINGS GROUP --}}
+@php
+    $contactActive = request()->is('admin/website-settings*')
+        || request()->is('admin/contact-pages*')
+        || request()->is('admin/enquiries*');
+@endphp
+
+    <div x-data="{ open: {{ $contactActive ? 'true' : 'false' }} }">
+        <button type="button"
+                @click="open = !open"
+                data-tooltip="Contact"
+                class="nav-link nav-group-btn {{ $contactActive ? 'active' : '' }}">
+            <div class="nav-group-left">
+                <i class="fas fa-headset nav-icon"></i>
+                <span class="nav-label">Contact & Settings</span>
+            </div>
+            <i class="fas fa-chevron-right chevron"
+               :style="open ? 'transform:rotate(90deg)' : ''"></i>
+        </button>
+
+        <div class="submenu"
+             x-show="open"
+             x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-100"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-1">
+
+            <a href="{{ route('admin.website-settings.index') }}"
+               class="sub-link {{ request()->is('admin/website-settings*') ? 'active' : '' }}">
+                <i class="fas fa-cog"></i>
+                Website Settings
+            </a>
+
+            <a href="{{ route('admin.contact-pages.index') }}"
+               class="sub-link {{ request()->is('admin/contact-pages*') ? 'active' : '' }}">
+                <i class="fas fa-file-alt"></i>
+                Contact Page
+            </a>
+
+            <a href="{{ route('admin.enquiries.index') }}"
+               class="sub-link {{ request()->is('admin/enquiries*') ? 'active' : '' }}">
+                <i class="fas fa-envelope-open-text"></i>
+                Enquiries
+            </a>
+        </div>
+    </div>
+
         
 
         <div class="nav-divider"></div>

@@ -2,6 +2,7 @@
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CampaignController;
+use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\OurWorkController;
 
@@ -62,6 +63,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('blog-topics', 'BlogTopicController');
     Route::resource('blog-sidebar-categories', 'BlogSidebarCategoryController');
 
+    // Contact & Settings
+    Route::resource('website-settings', 'WebsiteSettingController');
+    Route::resource('contact-pages', 'ContactPageController');
+    Route::resource('enquiries', 'EnquiryController')->except(['create', 'store']);
+
     
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
@@ -83,3 +89,5 @@ Route::get('/campaigns/{campaignEvent}', [CampaignController::class, 'show'])->n
 Route::get('/gallery', [GalleryController::class, 'index'])->name('frontend.gallery');
 Route::get('/blog', [BlogController::class, 'index'])->name('frontend.blog');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('frontend.blog.show');
+Route::get('/contact', [ContactController::class, 'index'])->name('frontend.contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('frontend.contact.store');

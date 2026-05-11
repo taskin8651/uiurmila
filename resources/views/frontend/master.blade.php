@@ -22,6 +22,16 @@
 </head>
 
 <body>
+@php
+    $site = $globalWebsiteSetting ?? null;
+    $siteName = $site?->site_name ?? 'URMILA Development Foundation';
+    $siteLogo = $site?->logo ? asset('uploads/settings/' . $site->logo) : asset('assets/img/logo-1.png');
+    $footerLogo = $site?->footer_logo ? asset('uploads/settings/' . $site->footer_logo) : $siteLogo;
+    $sitePhone = $site?->phone ?? '+91 79 7976 0133';
+    $sitePhoneLink = 'tel:' . preg_replace('/[^0-9+]/', '', $sitePhone);
+    $siteEmail = $site?->email ?? 'info@domainname.com';
+    $siteAddress = $site?->address ?? 'Lalita Bhawan, Boring Rd, Gandhi Nagar, Sri Krishna Puri, Patna, Bihar 800013';
+@endphp
 
     <!-- ================= HEADER START ================= -->
     <header class="main-header sticky-top">
@@ -30,14 +40,14 @@
 
                 <!-- Logo -->
                 <a class="navbar-brand premium-brand logo-only-brand" href="{{ url('/') }}"
-                    aria-label="URMILA Development Foundation">
+                    aria-label="{{ $siteName }}">
                     <span class="brand-logo-wrap">
-                        <img src="{{ asset('assets/img/logo-1.png') }}" alt="URMILA Development Foundation" class="site-logo">
+                        <img src="{{ $siteLogo }}" alt="{{ $siteName }}" class="site-logo">
                     </span>
                 </a>
 
                 <!-- Mobile Donate Icon -->
-                <a href="donate.html" class="mobile-donate-icon d-lg-none" aria-label="Donate Now">
+                <a href="{{ $site?->donate_button_link ?? 'donate.html' }}" class="mobile-donate-icon d-lg-none" aria-label="Donate Now">
                     <i class="bi bi-heart-fill"></i>
                 </a>
 
@@ -128,7 +138,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">
+                            <a class="nav-link {{ request()->routeIs('frontend.contact') ? 'active' : '' }}" href="{{ route('frontend.contact') }}">
                                 <span class="mobile-link-icon d-lg-none">
                                     <i class="bi bi-headset"></i>
                                 </span>
@@ -138,9 +148,9 @@
                         </li>
 
                         <li class="nav-item ms-lg-3 donate-nav-item">
-                            <a class="btn btn-donate" href="donate.html">
+                            <a class="btn btn-donate" href="{{ $site?->donate_button_link ?? 'donate.html' }}">
                                 <i class="bi bi-heart-fill me-1"></i>
-                                Donate Now
+                                {{ $site?->donate_button_text ?? 'Donate Now' }}
                             </a>
                         </li>
 
@@ -148,14 +158,14 @@
 
                     <!-- Mobile Bottom Contact -->
                     <div class="mobile-menu-footer d-lg-none">
-                        <a href="tel:+910000000000">
+                        <a href="{{ $sitePhoneLink }}">
                             <i class="bi bi-telephone"></i>
-                            +91 79 7976 0133
+                            {{ $sitePhone }}
                         </a>
 
-                        <a href="mailto:info@urmila.org">
+                        <a href="mailto:{{ $siteEmail }}">
                             <i class="bi bi-envelope"></i>
-                            info@domainname.com
+                            {{ $siteEmail }}
                         </a>
                     </div>
 
@@ -182,25 +192,24 @@
                         <div class="footer-widget footer-about">
 
                             <div class="footer-logo-box">
-                                <img src="{{ asset('assets/img/logo-1.png') }}" alt="URMILA Development Foundation"
+                                <img src="{{ $footerLogo }}" alt="{{ $siteName }}"
                                     class="footer-logo-img">
 
                                 <div>
-                                    <h4>URMILA Development Foundation</h4>
+                                    <h4>{{ $siteName }}</h4>
                                     <span>Community • Care • Change</span>
                                 </div>
                             </div>
 
                             <p>
-                                Working for community development, social welfare, education,
-                                healthcare, women empowerment, and environmental awareness.
+                                {{ $site?->footer_about ?? 'Working for community development, social welfare, education, healthcare, women empowerment, and environmental awareness.' }}
                             </p>
 
                             <div class="footer-social">
-                                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                                <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                                <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                                <a href="{{ $site?->facebook_link ?? '#' }}" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="{{ $site?->instagram_link ?? '#' }}" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                                <a href="{{ $site?->youtube_link ?? '#' }}" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                                <a href="{{ $site?->twitter_link ?? '#' }}" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
                             </div>
 
                         </div>
@@ -227,8 +236,8 @@
                             <h5>Support</h5>
 
                             <ul>
-                                <li><a href="donate.html"><i class="bi bi-chevron-right"></i> Donate Now</a></li>
-                                <li><a href="volunteer.html"><i class="bi bi-chevron-right"></i> Become Volunteer</a>
+                                <li><a href="{{ $site?->donate_button_link ?? 'donate.html' }}"><i class="bi bi-chevron-right"></i> {{ $site?->donate_button_text ?? 'Donate Now' }}</a></li>
+                                <li><a href="{{ $site?->volunteer_button_link ?? 'volunteer.html' }}"><i class="bi bi-chevron-right"></i> {{ $site?->volunteer_button_text ?? 'Become Volunteer' }}</a>
                                 </li>
                                 <li><a href="testimonials.html"><i class="bi bi-chevron-right"></i> Impact Stories</a>
                                 </li>
@@ -242,20 +251,19 @@
                         <div class="footer-widget footer-contact">
                             <h5>Contact</h5>
 
-                            <a href="contact.html" class="footer-contact-item">
+                            <a href="{{ route('frontend.contact') }}" class="footer-contact-item">
                                 <i class="bi bi-geo-alt"></i>
-                                <span>Lalita Bhawan, Boring Rd, Gandhi Nagar, Sri Krishna Puri, Patna, Bihar
-                                    800013</span>
+                                <span>{{ $siteAddress }}</span>
                             </a>
 
-                            <a href="tel:+917979760133" class="footer-contact-item">
+                            <a href="{{ $sitePhoneLink }}" class="footer-contact-item">
                                 <i class="bi bi-telephone"></i>
-                                <span>+91 79 7976 0133</span>
+                                <span>{{ $sitePhone }}</span>
                             </a>
 
-                            <a href="mailto:info@domainname.com" class="footer-contact-item">
+                            <a href="mailto:{{ $siteEmail }}" class="footer-contact-item">
                                 <i class="bi bi-envelope"></i>
-                                <span>info@domainname.com</span>
+                                <span>{{ $siteEmail }}</span>
                             </a>
                         </div>
                     </div>
@@ -269,8 +277,8 @@
                         <p>Join as a donor, volunteer, or community partner.</p>
                     </div>
 
-                    <a href="donate.html" class="footer-cta-btn">
-                        Donate Now
+                    <a href="{{ $site?->donate_button_link ?? 'donate.html' }}" class="footer-cta-btn">
+                        {{ $site?->donate_button_text ?? 'Donate Now' }}
                         <i class="bi bi-heart-fill"></i>
                     </a>
                 </div>
