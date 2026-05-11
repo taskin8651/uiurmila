@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Frontend\AboutController;
+use App\Http\Controllers\Frontend\OurWorkController;
 
 
 Route::redirect('/', '/login');
@@ -29,11 +30,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
-// About
-     Route::resource('abouts', AboutController::class);
-    Route::resource('about-values', AboutValueController::class);
-    Route::resource('about-objectives', AboutObjectiveController::class);
-    Route::resource('about-goals', AboutGoalController::class);
+    // About
+    Route::resource('abouts', 'AboutController');
+    Route::resource('about-values', 'AboutValueController');
+    Route::resource('about-objectives', 'AboutObjectiveController');
+    Route::resource('about-goals', 'AboutGoalController');
+
+    // Our Work
+    Route::resource('our-works', 'OurWorkController');
+    Route::resource('our-work-categories', 'OurWorkCategoryController');
+    Route::resource('our-work-details', 'OurWorkDetailController');
+    Route::resource('our-work-initiatives', 'OurWorkInitiativeController');
 
     
 });
@@ -50,3 +57,4 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 // Frontend routes
 
 Route::get('/about', [AboutController::class, 'index'])->name('frontend.about');
+Route::get('/our-work', [OurWorkController::class, 'index'])->name('frontend.our-work');

@@ -29,10 +29,10 @@
             <div class="container">
 
                 <!-- Logo -->
-                <a class="navbar-brand premium-brand logo-only-brand" href="index.html"
+                <a class="navbar-brand premium-brand logo-only-brand" href="{{ url('/') }}"
                     aria-label="URMILA Development Foundation">
                     <span class="brand-logo-wrap">
-                        <img src="assets/img/logo-1.png" alt="URMILA Development Foundation" class="site-logo">
+                        <img src="{{ asset('assets/img/logo-1.png') }}" alt="URMILA Development Foundation" class="site-logo">
                     </span>
                 </a>
 
@@ -68,7 +68,7 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
 
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.html">
+                            <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">
                                 <span class="mobile-link-icon d-lg-none">
                                     <i class="bi bi-house-door"></i>
                                 </span>
@@ -78,7 +78,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">
+                            <a class="nav-link {{ request()->routeIs('frontend.about') ? 'active' : '' }}" href="{{ route('frontend.about') }}">
                                 <span class="mobile-link-icon d-lg-none">
                                     <i class="bi bi-info-circle"></i>
                                 </span>
@@ -88,7 +88,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="our-work.html">
+                            <a class="nav-link {{ request()->routeIs('frontend.our-work') ? 'active' : '' }}" href="{{ route('frontend.our-work') }}">
                                 <span class="mobile-link-icon d-lg-none">
                                     <i class="bi bi-grid-1x2"></i>
                                 </span>
@@ -182,7 +182,7 @@
                         <div class="footer-widget footer-about">
 
                             <div class="footer-logo-box">
-                                <img src="assets/img/logo-1.png" alt="URMILA Development Foundation"
+                                <img src="{{ asset('assets/img/logo-1.png') }}" alt="URMILA Development Foundation"
                                     class="footer-logo-img">
 
                                 <div>
@@ -212,9 +212,9 @@
                             <h5>Quick Links</h5>
 
                             <ul>
-                                <li><a href="index.html"><i class="bi bi-chevron-right"></i> Home</a></li>
-                                <li><a href="about.html"><i class="bi bi-chevron-right"></i> About Us</a></li>
-                                <li><a href="programs.html"><i class="bi bi-chevron-right"></i> Our Work</a></li>
+                                <li><a href="{{ url('/') }}"><i class="bi bi-chevron-right"></i> Home</a></li>
+                                <li><a href="{{ route('frontend.about') }}"><i class="bi bi-chevron-right"></i> About Us</a></li>
+                                <li><a href="{{ route('frontend.our-work') }}"><i class="bi bi-chevron-right"></i> Our Work</a></li>
                                 <li><a href="events.html"><i class="bi bi-chevron-right"></i> Campaigns</a></li>
                             </ul>
                         </div>
