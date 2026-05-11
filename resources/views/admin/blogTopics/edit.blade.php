@@ -3,12 +3,199 @@
 @section('page-title', 'Edit Blog Topic')
 
 @section('content')
-<div class="admin-page-head"><div><a href="{{ route('admin.blog-topics.index') }}" class="admin-back-link">&larr; {{ trans('global.back_to_list') }}</a><h2 class="admin-page-title">Edit Blog Topic</h2></div></div>
-<form method="POST" action="{{ route('admin.blog-topics.update',$blogTopic) }}" class="form-card">@csrf @method('PUT')
-<div class="row">
-@foreach(['icon','title'] as $field)<div class="col-md-6"><div class="field-group"><label>{{ ucfirst($field) }}</label><input type="text" name="{{ $field }}" class="form-control" value="{{ old($field,$blogTopic->$field) }}"></div></div>@endforeach
-<div class="col-md-12"><div class="field-group"><label>Description</label><textarea name="description" class="form-control" rows="3">{{ old('description',$blogTopic->description) }}</textarea></div></div>
-<div class="col-md-6"><div class="field-group"><label>Sort Order</label><input type="number" name="sort_order" class="form-control" value="{{ old('sort_order',$blogTopic->sort_order) }}"></div></div>
-<div class="col-md-6"><div class="field-group"><label>Status</label><select name="status" class="form-control"><option value="1" {{ old('status',$blogTopic->status) ? 'selected' : '' }}>Active</option><option value="0" {{ !old('status',$blogTopic->status) ? 'selected' : '' }}>Inactive</option></select></div></div>
-</div><div class="form-actions"><a href="{{ route('admin.blog-topics.index') }}" class="btn-outline">Cancel</a><button class="btn-primary" type="submit"><i class="fas fa-save"></i> Update</button></div></form>
+
+<div class="admin-page-head">
+    <div>
+        <a href="{{ route('admin.blog-topics.index') }}" class="admin-back-link">
+            &larr; {{ trans('global.back_to_list') }}
+        </a>
+
+        <h2 class="admin-page-title">Edit Blog Topic</h2>
+
+        <p class="admin-page-subtitle">
+            {{ $blogTopic->title }}
+        </p>
+    </div>
+</div>
+
+<form method="POST" action="{{ route('admin.blog-topics.update', $blogTopic) }}">
+    @csrf
+    @method('PUT')
+
+    <div class="admin-form-grid">
+
+        <div class="form-card">
+            <div class="form-card-header">
+                <div class="form-card-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+
+                <div>
+                    <p class="form-card-title">Topic Information</p>
+                    <p class="form-card-subtitle">
+                        Update topic icon, title and description
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-card-body">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="field-group">
+                            <label class="field-label" for="icon">
+                                Icon
+                            </label>
+
+                            <div class="input-icon-wrap">
+                                <i class="fas fa-icons icon"></i>
+
+                                <input type="text"
+                                       name="icon"
+                                       id="icon"
+                                       value="{{ old('icon', $blogTopic->icon) }}"
+                                       placeholder="bi bi-heart-fill"
+                                       class="field-input {{ $errors->has('icon') ? 'error' : '' }}">
+                            </div>
+
+                            @if($errors->has('icon'))
+                                <p class="field-error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ $errors->first('icon') }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="field-group">
+                            <label class="field-label" for="title">
+                                Title <span class="req">*</span>
+                            </label>
+
+                            <div class="input-icon-wrap">
+                                <i class="fas fa-heading icon"></i>
+
+                                <input type="text"
+                                       name="title"
+                                       id="title"
+                                       value="{{ old('title', $blogTopic->title) }}"
+                                       placeholder="Enter topic title"
+                                       class="field-input {{ $errors->has('title') ? 'error' : '' }}">
+                            </div>
+
+                            @if($errors->has('title'))
+                                <p class="field-error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ $errors->first('title') }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="field-group">
+                            <label class="field-label" for="description">
+                                Description
+                            </label>
+
+                            <textarea name="description"
+                                      id="description"
+                                      rows="4"
+                                      placeholder="Enter topic description"
+                                      class="field-input {{ $errors->has('description') ? 'error' : '' }}">{{ old('description', $blogTopic->description) }}</textarea>
+
+                            @if($errors->has('description'))
+                                <p class="field-error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ $errors->first('description') }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-card">
+            <div class="form-card-header">
+                <div class="form-card-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+
+                <div>
+                    <p class="form-card-title">Settings</p>
+                    <p class="form-card-subtitle">
+                        Control sorting and frontend visibility
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-card-body">
+                <div class="field-group">
+                    <label class="field-label" for="sort_order">
+                        Sort Order
+                    </label>
+
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-sort-numeric-down icon"></i>
+
+                        <input type="number"
+                               name="sort_order"
+                               id="sort_order"
+                               value="{{ old('sort_order', $blogTopic->sort_order) }}"
+                               placeholder="0"
+                               class="field-input {{ $errors->has('sort_order') ? 'error' : '' }}">
+                    </div>
+
+                    @if($errors->has('sort_order'))
+                        <p class="field-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            {{ $errors->first('sort_order') }}
+                        </p>
+                    @endif
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="status">
+                        Status <span class="req">*</span>
+                    </label>
+
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-toggle-on icon"></i>
+
+                        <select name="status"
+                                id="status"
+                                required
+                                class="field-input {{ $errors->has('status') ? 'error' : '' }}">
+                            <option value="1" {{ old('status', $blogTopic->status) == 1 ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ old('status', $blogTopic->status) == 0 ? 'selected' : '' }}>Inactive</option>
+                        </select>
+                    </div>
+
+                    @if($errors->has('status'))
+                        <p class="field-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            {{ $errors->first('status') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn-primary">
+            <i class="fas fa-save"></i>
+            Update Topic
+        </button>
+
+        <a href="{{ route('admin.blog-topics.index') }}" class="btn-ghost">
+            {{ trans('global.cancel') }}
+        </a>
+    </div>
+</form>
+
 @endsection
