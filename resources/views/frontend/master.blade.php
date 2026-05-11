@@ -108,7 +108,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="gallery.html">
+                            <a class="nav-link {{ request()->routeIs('frontend.gallery') ? 'active' : '' }}" href="{{ route('frontend.gallery') }}">
                                 <span class="mobile-link-icon d-lg-none">
                                     <i class="bi bi-images"></i>
                                 </span>
@@ -118,7 +118,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="blog.html">
+                            <a class="nav-link {{ request()->routeIs('frontend.blog*') ? 'active' : '' }}" href="{{ route('frontend.blog') }}">
                                 <span class="mobile-link-icon d-lg-none">
                                     <i class="bi bi-newspaper"></i>
                                 </span>
@@ -216,6 +216,7 @@
                                 <li><a href="{{ route('frontend.about') }}"><i class="bi bi-chevron-right"></i> About Us</a></li>
                                 <li><a href="{{ route('frontend.our-work') }}"><i class="bi bi-chevron-right"></i> Our Work</a></li>
                                 <li><a href="{{ route('frontend.campaigns') }}"><i class="bi bi-chevron-right"></i> Campaigns</a></li>
+                                <li><a href="{{ route('frontend.blog') }}"><i class="bi bi-chevron-right"></i> Blog</a></li>
                             </ul>
                         </div>
                     </div>

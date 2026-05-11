@@ -296,6 +296,118 @@
         </div>
     </div>
 
+        {{-- GALLERY MANAGEMENT GROUP --}}
+@php
+    $galleryActive = request()->is('admin/gallery-pages*')
+        || request()->is('admin/gallery-photos*')
+        || request()->is('admin/gallery-albums*')
+        || request()->is('admin/gallery-videos*');
+@endphp
+
+    <div x-data="{ open: {{ $galleryActive ? 'true' : 'false' }} }">
+        <button type="button"
+                @click="open = !open"
+                data-tooltip="Gallery"
+                class="nav-link nav-group-btn {{ $galleryActive ? 'active' : '' }}">
+            <div class="nav-group-left">
+                <i class="fas fa-images nav-icon"></i>
+                <span class="nav-label">Gallery</span>
+            </div>
+            <i class="fas fa-chevron-right chevron"
+               :style="open ? 'transform:rotate(90deg)' : ''"></i>
+        </button>
+
+        <div class="submenu"
+             x-show="open"
+             x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-100"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-1">
+
+            <a href="{{ route('admin.gallery-pages.index') }}"
+               class="sub-link {{ request()->is('admin/gallery-pages*') ? 'active' : '' }}">
+                <i class="fas fa-file-alt"></i>
+                Page Content
+            </a>
+
+            <a href="{{ route('admin.gallery-photos.index') }}"
+               class="sub-link {{ request()->is('admin/gallery-photos*') ? 'active' : '' }}">
+                <i class="fas fa-image"></i>
+                Photos
+            </a>
+
+            <a href="{{ route('admin.gallery-albums.index') }}"
+               class="sub-link {{ request()->is('admin/gallery-albums*') ? 'active' : '' }}">
+                <i class="fas fa-images"></i>
+                Event Albums
+            </a>
+
+            <a href="{{ route('admin.gallery-videos.index') }}"
+               class="sub-link {{ request()->is('admin/gallery-videos*') ? 'active' : '' }}">
+                <i class="fas fa-play-circle"></i>
+                Videos
+            </a>
+        </div>
+    </div>
+
+        {{-- BLOG MANAGEMENT GROUP --}}
+@php
+    $blogActive = request()->is('admin/blog-pages*')
+        || request()->is('admin/blogs*')
+        || request()->is('admin/blog-topics*')
+        || request()->is('admin/blog-sidebar-categories*');
+@endphp
+
+    <div x-data="{ open: {{ $blogActive ? 'true' : 'false' }} }">
+        <button type="button"
+                @click="open = !open"
+                data-tooltip="Blog"
+                class="nav-link nav-group-btn {{ $blogActive ? 'active' : '' }}">
+            <div class="nav-group-left">
+                <i class="fas fa-newspaper nav-icon"></i>
+                <span class="nav-label">Blog</span>
+            </div>
+            <i class="fas fa-chevron-right chevron"
+               :style="open ? 'transform:rotate(90deg)' : ''"></i>
+        </button>
+
+        <div class="submenu"
+             x-show="open"
+             x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-100"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-1">
+
+            <a href="{{ route('admin.blog-pages.index') }}"
+               class="sub-link {{ request()->is('admin/blog-pages*') ? 'active' : '' }}">
+                <i class="fas fa-file-alt"></i>
+                Page Content
+            </a>
+
+            <a href="{{ route('admin.blogs.index') }}"
+               class="sub-link {{ request()->is('admin/blogs*') ? 'active' : '' }}">
+                <i class="fas fa-newspaper"></i>
+                Articles
+            </a>
+
+            <a href="{{ route('admin.blog-topics.index') }}"
+               class="sub-link {{ request()->is('admin/blog-topics*') ? 'active' : '' }}">
+                <i class="fas fa-tags"></i>
+                Topics
+            </a>
+
+            <a href="{{ route('admin.blog-sidebar-categories.index') }}"
+               class="sub-link {{ request()->is('admin/blog-sidebar-categories*') ? 'active' : '' }}">
+                <i class="fas fa-list"></i>
+                Sidebar Categories
+            </a>
+        </div>
+    </div>
+
         
 
         <div class="nav-divider"></div>

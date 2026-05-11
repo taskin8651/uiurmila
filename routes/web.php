@@ -1,6 +1,8 @@
 <?php
 use App\Http\Controllers\Frontend\AboutController;
+use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CampaignController;
+use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\OurWorkController;
 
 
@@ -48,6 +50,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('campaign-featureds', 'CampaignFeaturedController');
     Route::resource('campaign-events', 'CampaignEventController');
 
+    // Gallery
+    Route::resource('gallery-pages', 'GalleryPageController');
+    Route::resource('gallery-photos', 'GalleryPhotoController');
+    Route::resource('gallery-albums', 'GalleryAlbumController');
+    Route::resource('gallery-videos', 'GalleryVideoController');
+
+    // Blog
+    Route::resource('blog-pages', 'BlogPageController');
+    Route::resource('blogs', 'BlogController');
+    Route::resource('blog-topics', 'BlogTopicController');
+    Route::resource('blog-sidebar-categories', 'BlogSidebarCategoryController');
+
     
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
@@ -65,3 +79,6 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 Route::get('/about', [AboutController::class, 'index'])->name('frontend.about');
 Route::get('/our-work', [OurWorkController::class, 'index'])->name('frontend.our-work');
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('frontend.campaigns');
+Route::get('/gallery', [GalleryController::class, 'index'])->name('frontend.gallery');
+Route::get('/blog', [BlogController::class, 'index'])->name('frontend.blog');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('frontend.blog.show');
