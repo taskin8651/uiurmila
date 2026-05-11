@@ -138,6 +138,16 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('frontend.faq') ? 'active' : '' }}" href="{{ route('frontend.faq') }}">
+                                <span class="mobile-link-icon d-lg-none">
+                                    <i class="bi bi-question-circle"></i>
+                                </span>
+                                <span>FAQ</span>
+                                <i class="bi bi-chevron-right mobile-link-arrow d-lg-none"></i>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('frontend.contact') ? 'active' : '' }}" href="{{ route('frontend.contact') }}">
                                 <span class="mobile-link-icon d-lg-none">
                                     <i class="bi bi-headset"></i>
@@ -241,7 +251,7 @@
                                 </li>
                                 <li><a href="testimonials.html"><i class="bi bi-chevron-right"></i> Impact Stories</a>
                                 </li>
-                                <li><a href="faq.html"><i class="bi bi-chevron-right"></i> FAQs</a></li>
+                                <li><a href="{{ route('frontend.faq') }}"><i class="bi bi-chevron-right"></i> FAQs</a></li>
                             </ul>
                         </div>
                     </div>
