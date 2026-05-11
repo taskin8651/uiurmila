@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\DonateController;
 use App\Http\Controllers\Frontend\FaqController;
 use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\OurWorkController;
+use App\Http\Controllers\Frontend\VolunteerController;
 
 
 Route::redirect('/', '/login');
@@ -72,6 +73,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('donate-pages', 'DonatePageController');
     Route::resource('donations', 'DonationController')->except(['create', 'store', 'edit', 'update']);
     Route::resource('faqs', 'FaqController');
+    Route::resource('volunteer-applications', 'VolunteerApplicationController')->except(['create', 'store']);
 
     
 });
@@ -99,3 +101,5 @@ Route::post('/contact', [ContactController::class, 'store'])->name('frontend.con
 Route::get('/donate', [DonateController::class, 'index'])->name('frontend.donate');
 Route::post('/donate', [DonateController::class, 'store'])->name('frontend.donate.store');
 Route::get('/faq', [FaqController::class, 'index'])->name('frontend.faq');
+Route::get('/volunteer', [VolunteerController::class, 'index'])->name('frontend.volunteer');
+Route::post('/volunteer', [VolunteerController::class, 'store'])->name('frontend.volunteer.store');

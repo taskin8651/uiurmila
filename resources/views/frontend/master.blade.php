@@ -148,6 +148,16 @@
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('frontend.volunteer') ? 'active' : '' }}" href="{{ route('frontend.volunteer') }}">
+                                <span class="mobile-link-icon d-lg-none">
+                                    <i class="bi bi-person-heart"></i>
+                                </span>
+                                <span>Volunteer</span>
+                                <i class="bi bi-chevron-right mobile-link-arrow d-lg-none"></i>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('frontend.contact') ? 'active' : '' }}" href="{{ route('frontend.contact') }}">
                                 <span class="mobile-link-icon d-lg-none">
                                     <i class="bi bi-headset"></i>
@@ -247,7 +257,7 @@
 
                             <ul>
                                 <li><a href="{{ $site?->donate_button_link ?? route('frontend.donate') }}"><i class="bi bi-chevron-right"></i> {{ $site?->donate_button_text ?? 'Donate Now' }}</a></li>
-                                <li><a href="{{ $site?->volunteer_button_link ?? 'volunteer.html' }}"><i class="bi bi-chevron-right"></i> {{ $site?->volunteer_button_text ?? 'Become Volunteer' }}</a>
+                                <li><a href="{{ $site?->volunteer_button_link ?? route('frontend.volunteer') }}"><i class="bi bi-chevron-right"></i> {{ $site?->volunteer_button_text ?? 'Become Volunteer' }}</a>
                                 </li>
                                 <li><a href="testimonials.html"><i class="bi bi-chevron-right"></i> Impact Stories</a>
                                 </li>

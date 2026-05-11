@@ -415,7 +415,8 @@
         || request()->is('admin/enquiries*')
         || request()->is('admin/donate-pages*')
         || request()->is('admin/donations*')
-        || request()->is('admin/faqs*');
+        || request()->is('admin/faqs*')
+        || request()->is('admin/volunteer-applications*');
 @endphp
 
     <div x-data="{ open: {{ $contactActive ? 'true' : 'false' }} }">
@@ -474,6 +475,12 @@
                class="sub-link {{ request()->is('admin/faqs*') ? 'active' : '' }}">
                 <i class="fas fa-question-circle"></i>
                 FAQs
+            </a>
+
+            <a href="{{ route('admin.volunteer-applications.index') }}"
+               class="sub-link {{ request()->is('admin/volunteer-applications*') ? 'active' : '' }}">
+                <i class="fas fa-hands-helping"></i>
+                Volunteers
             </a>
         </div>
     </div>

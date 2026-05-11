@@ -163,7 +163,7 @@
                         </p>
 
                         <div class="event-join-actions">
-                            <a href="{{ $event->secondary_button_link ?: ($campaignPage?->cta_primary_button_link ?? 'volunteer.html') }}" class="btn btn-light-custom">
+                            <a href="{{ $event->secondary_button_link ?: ($campaignPage?->cta_primary_button_link ?? route('frontend.volunteer')) }}" class="btn btn-light-custom">
                                 {{ $event->secondary_button_text ?: ($campaignPage?->cta_primary_button_text ?? 'Join as Volunteer') }}
                             </a>
 

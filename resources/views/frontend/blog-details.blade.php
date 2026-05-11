@@ -181,7 +181,7 @@
                 <a href="{{ $blogPage->detail_cta_primary_button_link ?? route('frontend.donate') }}" class="btn btn-light-custom">
                     {{ $blogPage->detail_cta_primary_button_text ?? 'Donate Now' }}
                 </a>
-                <a href="{{ $blogPage->detail_cta_secondary_button_link ?? 'volunteer.html' }}" class="btn btn-outline-light-custom">
+                <a href="{{ $blogPage->detail_cta_secondary_button_link ?? route('frontend.volunteer') }}" class="btn btn-outline-light-custom">
                     {{ $blogPage->detail_cta_secondary_button_text ?? 'Become Volunteer' }}
                 </a>
             </div>

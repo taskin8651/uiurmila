@@ -255,7 +255,7 @@
                 <a href="{{ $contactPage?->cta_primary_button_link ?? ($site?->donate_button_link ?? route('frontend.donate')) }}" class="btn btn-light-custom">
                     {{ $contactPage?->cta_primary_button_text ?? ($site?->donate_button_text ?? 'Donate Now') }}
                 </a>
-                <a href="{{ $contactPage?->cta_secondary_button_link ?? ($site?->volunteer_button_link ?? 'volunteer.html') }}" class="btn btn-outline-light-custom">
+                <a href="{{ $contactPage?->cta_secondary_button_link ?? ($site?->volunteer_button_link ?? route('frontend.volunteer')) }}" class="btn btn-outline-light-custom">
                     {{ $contactPage?->cta_secondary_button_text ?? ($site?->volunteer_button_text ?? 'Become Volunteer') }}
                 </a>
             </div>
