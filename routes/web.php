@@ -1,4 +1,6 @@
 <?php
+use App\Http\Controllers\Frontend\AboutController;
+
 
 Route::redirect('/', '/login');
 Route::get('/home', function () {
@@ -27,6 +29,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
+// About
+     Route::resource('abouts', AboutController::class);
+    Route::resource('about-values', AboutValueController::class);
+    Route::resource('about-objectives', AboutObjectiveController::class);
+    Route::resource('about-goals', AboutGoalController::class);
 
     
 });
@@ -40,3 +47,6 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
     }
 });
 
+// Frontend routes
+
+Route::get('/about', [AboutController::class, 'index'])->name('frontend.about');

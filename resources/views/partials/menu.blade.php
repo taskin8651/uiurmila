@@ -108,6 +108,83 @@
             </div>
         @endcan
 
+        {{-- ABOUT PAGE MANAGEMENT GROUP --}}
+@php
+    $aboutActive = request()->is('admin/abouts*')
+        || request()->is('admin/about-values*')
+        || request()->is('admin/about-objectives*')
+        || request()->is('admin/about-goals*');
+@endphp
+
+@if(
+    Gate::check('about_access') ||
+    Gate::check('about_value_access') ||
+    Gate::check('about_objective_access') ||
+    Gate::check('about_goal_access')
+)
+    <div x-data="{ open: {{ $aboutActive ? 'true' : 'false' }} }">
+
+        <button type="button"
+                @click="open = !open"
+                data-tooltip="About Page"
+                class="nav-link nav-group-btn {{ $aboutActive ? 'active' : '' }}">
+
+            <div class="nav-group-left">
+                <i class="fas fa-info-circle nav-icon"></i>
+                <span class="nav-label">About Page</span>
+            </div>
+
+            <i class="fas fa-chevron-right chevron"
+               :style="open ? 'transform:rotate(90deg)' : ''"></i>
+        </button>
+
+        <div class="submenu"
+             x-show="open"
+             x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-100"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-1">
+
+            @can('about_access')
+                <a href="{{ route('admin.abouts.index') }}"
+                   class="sub-link {{ request()->is('admin/abouts*') ? 'active' : '' }}">
+                    <i class="fas fa-file-alt"></i>
+                    About Content
+                </a>
+            @endcan
+
+            @can('about_value_access')
+                <a href="{{ route('admin.about-values.index') }}"
+                   class="sub-link {{ request()->is('admin/about-values*') ? 'active' : '' }}">
+                    <i class="fas fa-gem"></i>
+                    Core Values
+                </a>
+            @endcan
+
+            @can('about_objective_access')
+                <a href="{{ route('admin.about-objectives.index') }}"
+                   class="sub-link {{ request()->is('admin/about-objectives*') ? 'active' : '' }}">
+                    <i class="fas fa-list-check"></i>
+                    Objectives
+                </a>
+            @endcan
+
+            @can('about_goal_access')
+                <a href="{{ route('admin.about-goals.index') }}"
+                   class="sub-link {{ request()->is('admin/about-goals*') ? 'active' : '' }}">
+                    <i class="fas fa-flag"></i>
+                    Long Term Goals
+                </a>
+            @endcan
+
+        </div>
+    </div>
+@endif
+
+        
+
         <div class="nav-divider"></div>
 
         <p class="sidebar-section-title compact nav-label">Account</p>
