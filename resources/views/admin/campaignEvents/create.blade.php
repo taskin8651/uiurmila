@@ -1,0 +1,19 @@
+@extends('layouts.admin')
+
+@section('page-title', 'Add Campaign Event')
+
+@section('content')
+<div class="admin-page-head"><div><a href="{{ route('admin.campaign-events.index') }}" class="admin-back-link">&larr; Back To List</a><h2 class="admin-page-title">Add Campaign Event</h2><p class="admin-page-subtitle">Create a new campaign card</p></div></div>
+<form method="POST" action="{{ route('admin.campaign-events.store') }}" enctype="multipart/form-data">
+    @csrf
+    <div class="admin-form-grid"><div class="form-card"><div class="form-card-header"><div class="form-card-icon"><i class="fas fa-calendar-check"></i></div><div><p class="form-card-title">Event Information</p><p class="form-card-subtitle">Add event content and buttons</p></div></div><div class="form-card-body">
+        @foreach([['status_label','Status Label','Upcoming'],['status_class','Status Class','upcoming'],['category','Category','Healthcare'],['event_date','Event Date','12 June 2026'],['location','Location','Local Area'],['title','Title','Free Health Check Up'],['gallery_more_count','Gallery More Count','+8'],['primary_button_text','Primary Button Text','View Details'],['primary_button_link','Primary Button Link','/campaigns'],['secondary_button_text','Secondary Button Text','Join'],['secondary_button_link','Secondary Button Link','/volunteer']] as $field)<div class="field-group"><label class="field-label" for="{{ $field[0] }}">{{ $field[1] }} @if($field[0] === 'title')<span class="req">*</span>@endif</label><div class="input-icon-wrap"><i class="fas fa-pen icon"></i><input type="text" name="{{ $field[0] }}" id="{{ $field[0] }}" value="{{ old($field[0], $field[2]) }}" class="field-input {{ $errors->has($field[0]) ? 'error' : '' }}" {{ $field[0] === 'title' ? 'required' : '' }}></div>@if($errors->has($field[0]))<p class="field-error"><i class="fas fa-exclamation-circle"></i> {{ $errors->first($field[0]) }}</p>@endif</div>@endforeach
+        <div class="field-group"><label class="field-label" for="description">Description</label><textarea name="description" id="description" rows="4" class="field-input">{{ old('description') }}</textarea></div>
+    </div></div><div class="form-card"><div class="form-card-header"><div class="form-card-icon"><i class="fas fa-image"></i></div><div><p class="form-card-title">Images & Settings</p><p class="form-card-subtitle">Upload images and control visibility</p></div></div><div class="form-card-body">
+        @foreach([['image','Main Image'],['gallery_image_one','Gallery Image One'],['gallery_image_two','Gallery Image Two'],['gallery_image_three','Gallery Image Three']] as $imageField)<div class="field-group"><label class="field-label" for="{{ $imageField[0] }}">{{ $imageField[1] }}</label><div class="input-icon-wrap"><i class="fas fa-image icon"></i><input type="file" name="{{ $imageField[0] }}" id="{{ $imageField[0] }}" class="field-input"></div></div>@endforeach
+        <div class="field-group"><label class="field-label" for="sort_order">Sort Order</label><div class="input-icon-wrap"><i class="fas fa-sort-numeric-down icon"></i><input type="number" name="sort_order" id="sort_order" value="{{ old('sort_order', 0) }}" class="field-input"></div></div>
+        <div class="field-group"><label class="field-label" for="status">Status</label><div class="input-icon-wrap"><i class="fas fa-toggle-on icon"></i><select name="status" id="status" class="field-input"><option value="1" {{ old('status', 1) == 1 ? 'selected' : '' }}>Active</option><option value="0" {{ old('status', 1) == 0 ? 'selected' : '' }}>Inactive</option></select></div></div>
+    </div></div></div>
+    <div class="form-actions"><button type="submit" class="btn-primary"><i class="fas fa-save"></i> Save Event</button><a href="{{ route('admin.campaign-events.index') }}" class="btn-ghost">{{ trans('global.cancel') }}</a></div>
+</form>
+@endsection

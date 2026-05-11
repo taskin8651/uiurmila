@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Frontend\AboutController;
+use App\Http\Controllers\Frontend\CampaignController;
 use App\Http\Controllers\Frontend\OurWorkController;
 
 
@@ -42,6 +43,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('our-work-details', 'OurWorkDetailController');
     Route::resource('our-work-initiatives', 'OurWorkInitiativeController');
 
+    // Campaigns
+    Route::resource('campaign-pages', 'CampaignPageController');
+    Route::resource('campaign-featureds', 'CampaignFeaturedController');
+    Route::resource('campaign-events', 'CampaignEventController');
+
     
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
@@ -58,3 +64,4 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 
 Route::get('/about', [AboutController::class, 'index'])->name('frontend.about');
 Route::get('/our-work', [OurWorkController::class, 'index'])->name('frontend.our-work');
+Route::get('/campaigns', [CampaignController::class, 'index'])->name('frontend.campaigns');

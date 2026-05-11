@@ -98,7 +98,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="campaigns.html">
+                            <a class="nav-link {{ request()->routeIs('frontend.campaigns') ? 'active' : '' }}" href="{{ route('frontend.campaigns') }}">
                                 <span class="mobile-link-icon d-lg-none">
                                     <i class="bi bi-calendar2-event"></i>
                                 </span>
@@ -215,7 +215,7 @@
                                 <li><a href="{{ url('/') }}"><i class="bi bi-chevron-right"></i> Home</a></li>
                                 <li><a href="{{ route('frontend.about') }}"><i class="bi bi-chevron-right"></i> About Us</a></li>
                                 <li><a href="{{ route('frontend.our-work') }}"><i class="bi bi-chevron-right"></i> Our Work</a></li>
-                                <li><a href="events.html"><i class="bi bi-chevron-right"></i> Campaigns</a></li>
+                                <li><a href="{{ route('frontend.campaigns') }}"><i class="bi bi-chevron-right"></i> Campaigns</a></li>
                             </ul>
                         </div>
                     </div>
