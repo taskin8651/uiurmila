@@ -98,7 +98,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('frontend.campaigns') ? 'active' : '' }}" href="{{ route('frontend.campaigns') }}">
+                            <a class="nav-link {{ request()->routeIs('frontend.campaigns*') ? 'active' : '' }}" href="{{ route('frontend.campaigns') }}">
                                 <span class="mobile-link-icon d-lg-none">
                                     <i class="bi bi-calendar2-event"></i>
                                 </span>

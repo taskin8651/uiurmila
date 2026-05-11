@@ -79,6 +79,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 Route::get('/about', [AboutController::class, 'index'])->name('frontend.about');
 Route::get('/our-work', [OurWorkController::class, 'index'])->name('frontend.our-work');
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('frontend.campaigns');
+Route::get('/campaigns/{campaignEvent}', [CampaignController::class, 'show'])->name('frontend.campaigns.show');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('frontend.gallery');
 Route::get('/blog', [BlogController::class, 'index'])->name('frontend.blog');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('frontend.blog.show');

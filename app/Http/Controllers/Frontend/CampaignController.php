@@ -21,4 +21,16 @@ class CampaignController extends Controller
             'campaignEvents'
         ));
     }
+
+    public function show(CampaignEvent $campaignEvent)
+    {
+        abort_unless($campaignEvent->status, 404);
+
+        $campaignPage = CampaignPage::where('status', 1)->latest()->first();
+
+        return view('frontend.campaign-details', compact(
+            'campaignPage',
+            'campaignEvent'
+        ));
+    }
 }

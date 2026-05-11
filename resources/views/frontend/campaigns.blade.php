@@ -198,7 +198,7 @@
                             </div>
 
                             <div class="campaign-actions">
-                                <a href="{{ $event->primary_button_link ?? '#' }}">
+                                <a href="{{ route('frontend.campaigns.show', $event) }}">
                                     {{ $event->primary_button_text ?? 'View Details' }}
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
@@ -232,7 +232,7 @@
                                 <h4>{{ $fallback[4] }}</h4>
                                 <p>{{ $fallback[5] }}</p>
                                 <div class="campaign-actions">
-                                    <a href="{{ url('/campaigns') }}">View Details <i class="bi bi-arrow-right"></i></a>
+                                    <a href="{{ route('frontend.campaigns') }}">View Details <i class="bi bi-arrow-right"></i></a>
                                     <a href="{{ url('/volunteer') }}">Join</a>
                                 </div>
                             </div>
