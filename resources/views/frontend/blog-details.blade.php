@@ -118,7 +118,7 @@
                         <span>{{ $blogPage->detail_donate_badge ?? 'Support Our Work' }}</span>
                         <h4>{{ $blogPage->detail_donate_title ?? 'Help Us Reach More Communities' }}</h4>
                         <p>{{ $blogPage->detail_donate_description ?? 'Your donation can support health camps, awareness programs, food support, and education initiatives.' }}</p>
-                        <a href="{{ $blogPage->detail_donate_button_link ?? 'donate.html' }}">
+                        <a href="{{ $blogPage->detail_donate_button_link ?? route('frontend.donate') }}">
                             {{ $blogPage->detail_donate_button_text ?? 'Donate Now' }}
                             <i class="bi bi-heart-fill"></i>
                         </a>
@@ -178,7 +178,7 @@
                 <p>{{ $blogPage->detail_cta_description ?? 'Join hands with URMILA Development Foundation as a donor, volunteer, or campaign supporter.' }}</p>
             </div>
             <div class="blog-detail-cta-actions">
-                <a href="{{ $blogPage->detail_cta_primary_button_link ?? 'donate.html' }}" class="btn btn-light-custom">
+                <a href="{{ $blogPage->detail_cta_primary_button_link ?? route('frontend.donate') }}" class="btn btn-light-custom">
                     {{ $blogPage->detail_cta_primary_button_text ?? 'Donate Now' }}
                 </a>
                 <a href="{{ $blogPage->detail_cta_secondary_button_link ?? 'volunteer.html' }}" class="btn btn-outline-light-custom">

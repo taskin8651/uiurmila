@@ -167,7 +167,7 @@
                                 {{ $event->secondary_button_text ?: ($campaignPage?->cta_primary_button_text ?? 'Join as Volunteer') }}
                             </a>
 
-                            <a href="{{ $campaignPage?->cta_secondary_button_link ?? 'donate.html' }}" class="btn btn-outline-light-custom">
+                            <a href="{{ $campaignPage?->cta_secondary_button_link ?? route('frontend.donate') }}" class="btn btn-outline-light-custom">
                                 {{ $campaignPage?->cta_secondary_button_text ?? 'Support Cause' }}
                             </a>
                         </div>

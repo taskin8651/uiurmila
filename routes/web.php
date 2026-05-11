@@ -3,6 +3,7 @@ use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CampaignController;
 use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\DonateController;
 use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\OurWorkController;
 
@@ -67,6 +68,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('website-settings', 'WebsiteSettingController');
     Route::resource('contact-pages', 'ContactPageController');
     Route::resource('enquiries', 'EnquiryController')->except(['create', 'store']);
+    Route::resource('donate-pages', 'DonatePageController');
+    Route::resource('donations', 'DonationController')->except(['create', 'store', 'edit', 'update']);
 
     
 });
@@ -91,3 +94,5 @@ Route::get('/blog', [BlogController::class, 'index'])->name('frontend.blog');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('frontend.blog.show');
 Route::get('/contact', [ContactController::class, 'index'])->name('frontend.contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('frontend.contact.store');
+Route::get('/donate', [DonateController::class, 'index'])->name('frontend.donate');
+Route::post('/donate', [DonateController::class, 'store'])->name('frontend.donate.store');

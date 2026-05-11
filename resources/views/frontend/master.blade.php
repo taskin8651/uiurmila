@@ -47,7 +47,7 @@
                 </a>
 
                 <!-- Mobile Donate Icon -->
-                <a href="{{ $site?->donate_button_link ?? 'donate.html' }}" class="mobile-donate-icon d-lg-none" aria-label="Donate Now">
+                <a href="{{ $site?->donate_button_link ?? route('frontend.donate') }}" class="mobile-donate-icon d-lg-none" aria-label="Donate Now">
                     <i class="bi bi-heart-fill"></i>
                 </a>
 
@@ -148,7 +148,7 @@
                         </li>
 
                         <li class="nav-item ms-lg-3 donate-nav-item">
-                            <a class="btn btn-donate" href="{{ $site?->donate_button_link ?? 'donate.html' }}">
+                            <a class="btn btn-donate" href="{{ $site?->donate_button_link ?? route('frontend.donate') }}">
                                 <i class="bi bi-heart-fill me-1"></i>
                                 {{ $site?->donate_button_text ?? 'Donate Now' }}
                             </a>
@@ -236,7 +236,7 @@
                             <h5>Support</h5>
 
                             <ul>
-                                <li><a href="{{ $site?->donate_button_link ?? 'donate.html' }}"><i class="bi bi-chevron-right"></i> {{ $site?->donate_button_text ?? 'Donate Now' }}</a></li>
+                                <li><a href="{{ $site?->donate_button_link ?? route('frontend.donate') }}"><i class="bi bi-chevron-right"></i> {{ $site?->donate_button_text ?? 'Donate Now' }}</a></li>
                                 <li><a href="{{ $site?->volunteer_button_link ?? 'volunteer.html' }}"><i class="bi bi-chevron-right"></i> {{ $site?->volunteer_button_text ?? 'Become Volunteer' }}</a>
                                 </li>
                                 <li><a href="testimonials.html"><i class="bi bi-chevron-right"></i> Impact Stories</a>
@@ -277,7 +277,7 @@
                         <p>Join as a donor, volunteer, or community partner.</p>
                     </div>
 
-                    <a href="{{ $site?->donate_button_link ?? 'donate.html' }}" class="footer-cta-btn">
+                    <a href="{{ $site?->donate_button_link ?? route('frontend.donate') }}" class="footer-cta-btn">
                         {{ $site?->donate_button_text ?? 'Donate Now' }}
                         <i class="bi bi-heart-fill"></i>
                     </a>

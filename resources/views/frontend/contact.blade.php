@@ -252,7 +252,7 @@
                 <p>{{ $contactPage?->cta_description ?? 'Become a donor, volunteer, partner, or supporter of URMILA Development Foundation.' }}</p>
             </div>
             <div class="contact-cta-actions">
-                <a href="{{ $contactPage?->cta_primary_button_link ?? ($site?->donate_button_link ?? 'donate.html') }}" class="btn btn-light-custom">
+                <a href="{{ $contactPage?->cta_primary_button_link ?? ($site?->donate_button_link ?? route('frontend.donate')) }}" class="btn btn-light-custom">
                     {{ $contactPage?->cta_primary_button_text ?? ($site?->donate_button_text ?? 'Donate Now') }}
                 </a>
                 <a href="{{ $contactPage?->cta_secondary_button_link ?? ($site?->volunteer_button_link ?? 'volunteer.html') }}" class="btn btn-outline-light-custom">

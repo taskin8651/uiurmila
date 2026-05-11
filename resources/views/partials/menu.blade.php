@@ -412,7 +412,9 @@
 @php
     $contactActive = request()->is('admin/website-settings*')
         || request()->is('admin/contact-pages*')
-        || request()->is('admin/enquiries*');
+        || request()->is('admin/enquiries*')
+        || request()->is('admin/donate-pages*')
+        || request()->is('admin/donations*');
 @endphp
 
     <div x-data="{ open: {{ $contactActive ? 'true' : 'false' }} }">
@@ -453,6 +455,18 @@
                class="sub-link {{ request()->is('admin/enquiries*') ? 'active' : '' }}">
                 <i class="fas fa-envelope-open-text"></i>
                 Enquiries
+            </a>
+
+            <a href="{{ route('admin.donate-pages.index') }}"
+               class="sub-link {{ request()->is('admin/donate-pages*') ? 'active' : '' }}">
+                <i class="fas fa-hand-holding-heart"></i>
+                Donate Page
+            </a>
+
+            <a href="{{ route('admin.donations.index') }}"
+               class="sub-link {{ request()->is('admin/donations*') ? 'active' : '' }}">
+                <i class="fas fa-receipt"></i>
+                Donations
             </a>
         </div>
     </div>
