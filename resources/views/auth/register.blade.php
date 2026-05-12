@@ -1,113 +1,99 @@
-@extends('layouts.app')
+@extends('frontend.master')
+
 @section('content')
+@php
+    $site = $globalWebsiteSetting ?? null;
+    $siteName = $site?->site_name ?? trans('panel.site_title');
+    $siteLogo = $site?->logo ? asset('uploads/settings/' . $site->logo) : asset('assets/img/logo-1.png');
+@endphp
 
-<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+<section class="auth-page-section">
+    <span class="auth-bg-shape auth-shape-one"></span>
+    <span class="auth-bg-shape auth-shape-two"></span>
 
-    <div class="w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-sm">
+    <div class="container">
+        <div class="auth-shell">
+            <div class="auth-intro-panel">
+                <span class="section-badge auth-badge">
+                    <i class="bi bi-person-plus-fill"></i>
+                    Join the Mission
+                </span>
 
-        {{-- HEADER --}}
-        <div class="px-8 pt-8 pb-4 text-center">
-            <h1 class="text-2xl font-semibold text-gray-900">
-                {{ trans('panel.site_title') }}
-            </h1>
-            <p class="text-sm text-gray-500 mt-1">
-                {{ trans('global.register') }}
-            </p>
+                <h1>Create Your Account</h1>
+                <p>
+                    Register with URMILA Development Foundation to access your account and stay connected with our social initiatives.
+                </p>
+
+                <div class="auth-feature-list">
+                    <div><i class="bi bi-check-circle-fill"></i><span>Simple account setup</span></div>
+                    <div><i class="bi bi-check-circle-fill"></i><span>Secure member profile</span></div>
+                    <div><i class="bi bi-check-circle-fill"></i><span>Access foundation updates</span></div>
+                </div>
+            </div>
+
+            <div class="auth-card">
+                <div class="auth-brand">
+                    <img src="{{ $siteLogo }}" alt="{{ $siteName }}">
+                    <div>
+                        <h2>{{ $siteName }}</h2>
+                        <span>{{ trans('global.register') }}</span>
+                    </div>
+                </div>
+
+                <form method="POST" action="{{ route('register') }}" class="auth-form">
+                    @csrf
+
+                    <div class="auth-field">
+                        <label for="name">{{ trans('global.user_name') }}</label>
+                        <div class="auth-input-wrap">
+                            <i class="bi bi-person"></i>
+                            <input id="name" type="text" name="name" value="{{ old('name') }}"
+                                class="form-control @error('name') is-invalid @enderror" placeholder="Enter full name" required autofocus>
+                        </div>
+                        @error('name')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="email">{{ trans('global.login_email') }}</label>
+                        <div class="auth-input-wrap">
+                            <i class="bi bi-envelope"></i>
+                            <input id="email" type="email" name="email" value="{{ old('email') }}"
+                                class="form-control @error('email') is-invalid @enderror" placeholder="Enter email address" required>
+                        </div>
+                        @error('email')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="password">{{ trans('global.login_password') }}</label>
+                        <div class="auth-input-wrap">
+                            <i class="bi bi-lock"></i>
+                            <input id="password" type="password" name="password"
+                                class="form-control @error('password') is-invalid @enderror" placeholder="Create password" required>
+                        </div>
+                        @error('password')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="password_confirmation">{{ trans('global.login_password_confirmation') }}</label>
+                        <div class="auth-input-wrap">
+                            <i class="bi bi-shield-check"></i>
+                            <input id="password_confirmation" type="password" name="password_confirmation"
+                                class="form-control" placeholder="Confirm password" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-custom auth-submit-btn">
+                        {{ trans('global.register') }}
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </button>
+
+                    <div class="auth-switch">
+                        <span>Already have an account?</span>
+                        <a href="{{ route('login') }}">{{ trans('global.login') }}</a>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        {{-- FORM --}}
-        <form method="POST" action="{{ route('register') }}" class="px-8 pb-8 space-y-5">
-            @csrf
-
-            {{-- NAME --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ trans('global.user_name') }}
-                </label>
-                <input type="text"
-                       name="name"
-                       value="{{ old('name') }}"
-                       required
-                       autofocus
-                       class="w-full px-3 py-2 border rounded-md text-sm
-                              focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                              {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300' }}">
-                @if($errors->has('name'))
-                    <p class="mt-1 text-xs text-red-600">
-                        {{ $errors->first('name') }}
-                    </p>
-                @endif
-            </div>
-
-            {{-- EMAIL --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ trans('global.login_email') }}
-                </label>
-                <input type="email"
-                       name="email"
-                       value="{{ old('email') }}"
-                       required
-                       class="w-full px-3 py-2 border rounded-md text-sm
-                              focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                              {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }}">
-                @if($errors->has('email'))
-                    <p class="mt-1 text-xs text-red-600">
-                        {{ $errors->first('email') }}
-                    </p>
-                @endif
-            </div>
-
-            {{-- PASSWORD --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ trans('global.login_password') }}
-                </label>
-                <input type="password"
-                       name="password"
-                       required
-                       class="w-full px-3 py-2 border rounded-md text-sm
-                              focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                              {{ $errors->has('password') ? 'border-red-500' : 'border-gray-300' }}">
-                @if($errors->has('password'))
-                    <p class="mt-1 text-xs text-red-600">
-                        {{ $errors->first('password') }}
-                    </p>
-                @endif
-            </div>
-
-            {{-- CONFIRM PASSWORD --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ trans('global.login_password_confirmation') }}
-                </label>
-                <input type="password"
-                       name="password_confirmation"
-                       required
-                       class="w-full px-3 py-2 border rounded-md text-sm
-                              focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                              border-gray-300">
-            </div>
-
-            {{-- ACTION --}}
-            <div class="pt-2">
-                <button type="submit"
-                        class="w-full py-2.5 bg-blue-600 text-white text-sm font-medium
-                               rounded-md hover:bg-blue-700 transition">
-                    {{ trans('global.register') }}
-                </button>
-            </div>
-
-            {{-- LOGIN LINK --}}
-            <div class="text-center pt-2">
-                <a href="{{ route('login') }}"
-                   class="text-sm text-blue-600 hover:underline">
-                    Already have an account? Login
-                </a>
-            </div>
-
-        </form>
     </div>
-</div>
-
+</section>
 @endsection
