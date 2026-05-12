@@ -9,6 +9,10 @@
     $galleryPhotos = $galleryPhotos ?? collect();
     $site = $websiteSetting ?? ($globalWebsiteSetting ?? null);
     $contactPage = $contactPage ?? null;
+    $homeHero = $homeHero ?? null;
+    $heroImage = $homeHero && $homeHero->image ? asset('uploads/home-hero/' . $homeHero->image) : asset('assets/img/img.jpeg');
+    $heroPrimaryLink = $homeHero?->primary_button_link ?: route('frontend.donate');
+    $heroSecondaryLink = $homeHero?->secondary_button_link ?: route('frontend.volunteer');
 @endphp
 
 
@@ -24,29 +28,27 @@
                     <div class="hero-content">
 
                         <span class="section-badge hero-badge">
-                            <i class="bi bi-stars"></i>
-                            For Social Impact
+                            <i class="{{ $homeHero?->badge_icon ?? 'bi bi-stars' }}"></i>
+                            {{ $homeHero?->badge_text ?? 'For Social Impact' }} 
                         </span>
 
                         <h1 class="hero-title">
-                            Building Hope, Empowering Communities
+                            {{ $homeHero?->title ?? 'Building Hope, Empowering Communities' }}
                         </h1>
 
                         <p class="hero-text">
-                            URMILA Development Foundation works for education, healthcare,
-                            women empowerment, poverty alleviation, environmental awareness,
-                            and community welfare.
+                            {{ $homeHero?->description ?? 'URMILA Development Foundation works for education, healthcare, women empowerment, poverty alleviation, environmental awareness, and community welfare.' }}
                         </p>
 
                         <div class="hero-buttons">
-                            <a href="{{  route('frontend.donate') }}" class="btn btn-primary-custom">
+                            <a href="{{ $heroPrimaryLink }}" class="btn btn-primary-custom">
                                 <i class="bi bi-heart-fill me-2"></i>
-                                Donate Now
+                                {{ $homeHero?->primary_button_text ?? 'Donate Now' }}
                             </a>
 
-                            <a href="{{  route('frontend.volunteer') }}" class="btn btn-outline-custom">
+                            <a href="{{ $heroSecondaryLink }}" class="btn btn-outline-custom">
                                 <i class="bi bi-person-plus me-2"></i>
-                                Become Volunteer
+                                {{ $homeHero?->secondary_button_text ?? 'Become Volunteer' }}
                             </a>
                         </div>
 
@@ -58,17 +60,17 @@
                     <div class="hero-image-wrap">
 
                         <div class="hero-image-box">
-                            <img src="assets/img/img.jpeg" alt="URMILA Development Foundation">
+                            <img src="{{ $heroImage }}" alt="{{ $homeHero?->image_alt ?? 'URMILA Development Foundation' }}">
                         </div>
 
                         <div class="hero-small-card">
                             <div class="hero-small-icon">
-                                <i class="bi bi-heart-pulse-fill"></i>
+                                <i class="{{ $homeHero?->small_card_icon ?? 'bi bi-heart-pulse-fill' }}"></i>
                             </div>
 
                             <div>
-                                <h6>Community Welfare</h6>
-                                <p>Serving people with care</p>
+                                <h6>{{ $homeHero?->small_card_title ?? 'Community Welfare' }}</h6>
+                                <p>{{ $homeHero?->small_card_text ?? 'Serving people with care' }}</p>
                             </div>
                         </div>
 

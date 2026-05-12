@@ -38,6 +38,13 @@
             <span class="nav-label">{{ trans('global.dashboard') }}</span>
         </a>
 
+        <a href="{{ route('admin.home-hero.index') }}"
+           data-tooltip="Home Hero"
+           class="nav-link {{ request()->is('admin/home-hero*') ? 'active' : '' }}">
+            <i class="fas fa-house nav-icon"></i>
+            <span class="nav-label">Home Hero</span>
+        </a>
+
         {{-- USER MANAGEMENT GROUP --}}
         @can('user_management_access')
             @php

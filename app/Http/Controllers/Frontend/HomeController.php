@@ -7,6 +7,7 @@ use App\Models\About;
 use App\Models\CampaignEvent;
 use App\Models\ContactPage;
 use App\Models\GalleryPhoto;
+use App\Models\HomeHero;
 use App\Models\OurWorkCategory;
 use App\Models\WebsiteSetting;
 
@@ -20,6 +21,7 @@ class HomeController extends Controller
         $galleryPhotos = GalleryPhoto::where('status', 1)->orderBy('sort_order')->latest()->take(3)->get();
         $contactPage = ContactPage::where('status', 1)->latest()->first();
         $websiteSetting = WebsiteSetting::where('status', 1)->latest()->first();
+        $homeHero = HomeHero::where('status', 1)->latest()->first();
 
         return view('frontend.index', compact(
             'about',
@@ -27,7 +29,8 @@ class HomeController extends Controller
             'events',
             'galleryPhotos',
             'contactPage',
-            'websiteSetting'
+            'websiteSetting',
+            'homeHero'
         ));
     }
 }

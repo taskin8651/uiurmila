@@ -10,6 +10,7 @@ use App\Models\DonatePage;
 use App\Models\Donation;
 use App\Models\Enquiry;
 use App\Models\Faq;
+use App\Models\HomeHero;
 use App\Models\OurWork;
 use App\Models\OurWorkCategory;
 use App\Models\OurWorkDetail;
@@ -36,6 +37,7 @@ class HomeController
         ];
 
         $contentStats = [
+            ['label' => 'Home Hero', 'count' => HomeHero::count(), 'route' => 'admin.home-hero.index', 'icon' => 'fa-house', 'color' => '#7C3AED', 'bg' => '#F3E8FF'],
             ['label' => 'Donations', 'count' => Donation::count(), 'route' => 'admin.donations.index', 'icon' => 'fa-receipt', 'color' => '#B91C1C', 'bg' => '#FEE2E2'],
             ['label' => 'Donate Page', 'count' => DonatePage::count(), 'route' => 'admin.donate-pages.index', 'icon' => 'fa-hand-holding-heart', 'color' => '#DC2626', 'bg' => '#FEF2F2'],
             ['label' => 'Enquiries', 'count' => Enquiry::count(), 'route' => 'admin.enquiries.index', 'icon' => 'fa-envelope-open-text', 'color' => '#BE185D', 'bg' => '#FCE7F3'],
