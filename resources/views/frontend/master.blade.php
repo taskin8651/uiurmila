@@ -2,13 +2,35 @@
 <html lang="en">
 
 <head>
+    @php
+        $headSite = $globalWebsiteSetting ?? null;
+        $headSiteName = $headSite?->site_name ?? 'URMILA Development Foundation';
+        $metaTitle = $headSite?->meta_title ?? $headSiteName;
+        $metaDescription = $headSite?->meta_description ?? 'URMILA Development Foundation works for education, healthcare, women empowerment, awareness and community welfare.';
+        $metaKeywords = $headSite?->meta_keywords ?? 'URMILA Development Foundation, NGO, donation, volunteer, social welfare';
+        $metaAuthor = $headSite?->meta_author ?? $headSiteName;
+        $canonicalUrl = $headSite?->canonical_url ?? url()->current();
+        $faviconUrl = $headSite?->favicon ? asset('uploads/settings/' . $headSite->favicon) : asset('favicon.ico');
+        $ogTitle = $headSite?->og_title ?? $metaTitle;
+        $ogDescription = $headSite?->og_description ?? $metaDescription;
+        $ogImage = $headSite?->og_image ? asset('uploads/settings/' . $headSite->og_image) : ($headSite?->logo ? asset('uploads/settings/' . $headSite->logo) : asset('assets/img/logo-1.png'));
+    @endphp
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>URMILA Development Foundation</title>
-    <meta name="description"
-        content="Gadsec Solutions provides CCTV surveillance, fire safety, access control, intrusion alarm, ICT infrastructure, automation, installation and AMC support for commercial, industrial, institutional and government projects.">
+    <title>{{ $metaTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}">
+    <meta name="keywords" content="{{ $metaKeywords }}">
+    <meta name="author" content="{{ $metaAuthor }}">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#0B2D4D">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    <link rel="icon" href="{{ $faviconUrl }}">
+    <link rel="shortcut icon" href="{{ $faviconUrl }}">
+    <meta property="og:title" content="{{ $ogTitle }}">
+    <meta property="og:description" content="{{ $ogDescription }}">
+    <meta property="og:image" content="{{ $ogImage }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    <meta property="og:type" content="website">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,7 +69,7 @@
                 </a>
 
                 <!-- Mobile Donate Icon -->
-                <a href="{{ $site?->donate_button_link ?? route('frontend.donate') }}" class="mobile-donate-icon d-lg-none" aria-label="Donate Now">
+                <a href="{{  route('frontend.donate') }}" class="mobile-donate-icon d-lg-none" aria-label="Donate Now">
                     <i class="bi bi-heart-fill"></i>
                 </a>
 
@@ -137,25 +159,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('frontend.faq') ? 'active' : '' }}" href="{{ route('frontend.faq') }}">
-                                <span class="mobile-link-icon d-lg-none">
-                                    <i class="bi bi-question-circle"></i>
-                                </span>
-                                <span>FAQ</span>
-                                <i class="bi bi-chevron-right mobile-link-arrow d-lg-none"></i>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('frontend.volunteer') ? 'active' : '' }}" href="{{ route('frontend.volunteer') }}">
-                                <span class="mobile-link-icon d-lg-none">
-                                    <i class="bi bi-person-heart"></i>
-                                </span>
-                                <span>Volunteer</span>
-                                <i class="bi bi-chevron-right mobile-link-arrow d-lg-none"></i>
-                            </a>
-                        </li>
+                       
 
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('frontend.contact') ? 'active' : '' }}" href="{{ route('frontend.contact') }}">
@@ -168,7 +172,7 @@
                         </li>
 
                         <li class="nav-item ms-lg-3 donate-nav-item">
-                            <a class="btn btn-donate" href="{{ $site?->donate_button_link ?? route('frontend.donate') }}">
+                            <a class="btn btn-donate" href="{{  route('frontend.donate') }}">
                                 <i class="bi bi-heart-fill me-1"></i>
                                 {{ $site?->donate_button_text ?? 'Donate Now' }}
                             </a>
@@ -256,10 +260,10 @@
                             <h5>Support</h5>
 
                             <ul>
-                                <li><a href="{{ $site?->donate_button_link ?? route('frontend.donate') }}"><i class="bi bi-chevron-right"></i> {{ $site?->donate_button_text ?? 'Donate Now' }}</a></li>
+                                <li><a href="{{  route('frontend.donate') }}"><i class="bi bi-chevron-right"></i> {{ $site?->donate_button_text ?? 'Donate Now' }}</a></li>
                                 <li><a href="{{ $site?->volunteer_button_link ?? route('frontend.volunteer') }}"><i class="bi bi-chevron-right"></i> {{ $site?->volunteer_button_text ?? 'Become Volunteer' }}</a>
                                 </li>
-                                <li><a href="testimonials.html"><i class="bi bi-chevron-right"></i> Impact Stories</a>
+                                <li><a href="{{ route('frontend.testimonials') }}"><i class="bi bi-chevron-right"></i> Impact Stories</a>
                                 </li>
                                 <li><a href="{{ route('frontend.faq') }}"><i class="bi bi-chevron-right"></i> FAQs</a></li>
                             </ul>
@@ -297,7 +301,7 @@
                         <p>Join as a donor, volunteer, or community partner.</p>
                     </div>
 
-                    <a href="{{ $site?->donate_button_link ?? route('frontend.donate') }}" class="footer-cta-btn">
+                    <a href="{{  route('frontend.donate') }}" class="footer-cta-btn">
                         {{ $site?->donate_button_text ?? 'Donate Now' }}
                         <i class="bi bi-heart-fill"></i>
                     </a>

@@ -416,6 +416,7 @@
         || request()->is('admin/donate-pages*')
         || request()->is('admin/donations*')
         || request()->is('admin/faqs*')
+        || request()->is('admin/testimonials*')
         || request()->is('admin/volunteer-applications*');
 @endphp
 
@@ -475,6 +476,12 @@
                class="sub-link {{ request()->is('admin/faqs*') ? 'active' : '' }}">
                 <i class="fas fa-question-circle"></i>
                 FAQs
+            </a>
+
+            <a href="{{ route('admin.testimonials.index') }}"
+               class="sub-link {{ request()->is('admin/testimonials*') ? 'active' : '' }}">
+                <i class="fas fa-comment-dots"></i>
+                Testimonials
             </a>
 
             <a href="{{ route('admin.volunteer-applications.index') }}"

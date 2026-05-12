@@ -118,7 +118,7 @@
                         <span>{{ $blogPage->detail_donate_badge ?? 'Support Our Work' }}</span>
                         <h4>{{ $blogPage->detail_donate_title ?? 'Help Us Reach More Communities' }}</h4>
                         <p>{{ $blogPage->detail_donate_description ?? 'Your donation can support health camps, awareness programs, food support, and education initiatives.' }}</p>
-                        <a href="{{ $blogPage->detail_donate_button_link ?? route('frontend.donate') }}">
+                        <a href="{{  route('frontend.donate') }}">
                             {{ $blogPage->detail_donate_button_text ?? 'Donate Now' }}
                             <i class="bi bi-heart-fill"></i>
                         </a>

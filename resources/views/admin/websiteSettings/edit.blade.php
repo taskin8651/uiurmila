@@ -28,6 +28,17 @@
                 ['logo', 'Logo', 'file', 'fas fa-image'],
                 ['footer_logo', 'Footer Logo', 'file', 'fas fa-image'],
                 ['favicon', 'Favicon', 'file', 'fas fa-star'],
+                ['og_image', 'Open Graph Image', 'file', 'fas fa-share-alt'],
+            ],
+
+            'SEO Settings' => [
+                ['meta_title', 'Meta Title', 'text', 'fas fa-heading'],
+                ['meta_description', 'Meta Description', 'textarea', 'fas fa-align-left'],
+                ['meta_keywords', 'Meta Keywords', 'textarea', 'fas fa-tags'],
+                ['meta_author', 'Meta Author', 'text', 'fas fa-user'],
+                ['canonical_url', 'Canonical URL', 'text', 'fas fa-link'],
+                ['og_title', 'OG Title', 'text', 'fas fa-heading'],
+                ['og_description', 'OG Description', 'textarea', 'fas fa-align-left'],
             ],
 
             'Basic Website Information' => [
@@ -129,7 +140,7 @@
                                             <div class="mt-2">
                                                 <p class="table-sub-text mb-2">{{ $websiteSetting->$name }}</p>
 
-                                                <img src="{{ asset('uploads/website/' . $websiteSetting->$name) }}"
+                                                <img src="{{ asset('uploads/settings/' . $websiteSetting->$name) }}"
                                                      alt="{{ $label }}"
                                                      style="width:110px;height:80px;object-fit:contain;border-radius:12px;border:1px solid #E5E7EB;background:#fff;">
                                             </div>

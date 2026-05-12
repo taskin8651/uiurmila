@@ -221,15 +221,15 @@
         <div style="display:flex; gap:16px; flex-wrap:wrap;">
             <div style="background:rgba(255,255,255,.15); padding:8px 16px; border-radius:10px; backdrop-filter:blur(4px);">
                 <span style="font-size:11px; opacity:.8; display:block;">Total Users</span>
-                <span style="font-size:18px; font-weight:700;">1,284</span>
+                <span style="font-size:18px; font-weight:700;">{{ number_format($dashboardMetrics['users']) }}</span>
             </div>
             <div style="background:rgba(255,255,255,.15); padding:8px 16px; border-radius:10px;">
-                <span style="font-size:11px; opacity:.8; display:block;">Active Now</span>
-                <span style="font-size:18px; font-weight:700;">42</span>
+                <span style="font-size:11px; opacity:.8; display:block;">Roles</span>
+                <span style="font-size:18px; font-weight:700;">{{ number_format($dashboardMetrics['roles']) }}</span>
             </div>
             <div style="background:rgba(255,255,255,.15); padding:8px 16px; border-radius:10px;">
-                <span style="font-size:11px; opacity:.8; display:block;">Today's Logins</span>
-                <span style="font-size:18px; font-weight:700;">138</span>
+                <span style="font-size:11px; opacity:.8; display:block;">Today's Activity</span>
+                <span style="font-size:18px; font-weight:700;">{{ number_format($dashboardMetrics['todayLogs']) }}</span>
             </div>
         </div>
     </div>
@@ -244,8 +244,8 @@
         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
             <div>
                 <p style="font-size:12px; color:#6B7280; font-weight:600; margin:0 0 6px; text-transform:uppercase; letter-spacing:.05em;">Total Users</p>
-                <p style="font-size:26px; font-weight:700; color:#111827; margin:0 0 8px; line-height:1;">1,284</p>
-                <span class="badge badge-up">↑ 12.5% this month</span>
+                <p style="font-size:26px; font-weight:700; color:#111827; margin:0 0 8px; line-height:1;">{{ number_format($dashboardMetrics['users']) }}</p>
+                <span class="badge badge-up">{{ number_format($dashboardMetrics['todayUsers']) }} today</span>
             </div>
             <div class="icon-wrap"><i class="fas fa-users"></i></div>
         </div>
@@ -256,8 +256,8 @@
         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
             <div>
                 <p style="font-size:12px; color:#6B7280; font-weight:600; margin:0 0 6px; text-transform:uppercase; letter-spacing:.05em;">Total Roles</p>
-                <p style="font-size:26px; font-weight:700; color:#111827; margin:0 0 8px; line-height:1;">8</p>
-                <span class="badge" style="background:#F3F4F6; color:#374151;">2 added recently</span>
+                <p style="font-size:26px; font-weight:700; color:#111827; margin:0 0 8px; line-height:1;">{{ number_format($dashboardMetrics['roles']) }}</p>
+                <span class="badge" style="background:#F3F4F6; color:#374151;">{{ number_format($roleDistribution->sum('users_count')) }} assigned users</span>
             </div>
             <div class="icon-wrap" style="background:#F0FDF4; color:#16A34A;"><i class="fas fa-shield-alt"></i></div>
         </div>
@@ -268,7 +268,7 @@
         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
             <div>
                 <p style="font-size:12px; color:#6B7280; font-weight:600; margin:0 0 6px; text-transform:uppercase; letter-spacing:.05em;">Permissions</p>
-                <p style="font-size:26px; font-weight:700; color:#111827; margin:0 0 8px; line-height:1;">64</p>
+                <p style="font-size:26px; font-weight:700; color:#111827; margin:0 0 8px; line-height:1;">{{ number_format($dashboardMetrics['permissions']) }}</p>
                 <span class="badge" style="background:#FEF3C7; color:#92400E;">Active & assigned</span>
             </div>
             <div class="icon-wrap" style="background:#FFFBEB; color:#D97706;"><i class="fas fa-lock"></i></div>
@@ -280,8 +280,8 @@
         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
             <div>
                 <p style="font-size:12px; color:#6B7280; font-weight:600; margin:0 0 6px; text-transform:uppercase; letter-spacing:.05em;">Audit Logs</p>
-                <p style="font-size:26px; font-weight:700; color:#111827; margin:0 0 8px; line-height:1;">5,918</p>
-                <span class="badge badge-down">↑ 3.2% today</span>
+                <p style="font-size:26px; font-weight:700; color:#111827; margin:0 0 8px; line-height:1;">{{ number_format($dashboardMetrics['auditLogs']) }}</p>
+                <span class="badge badge-down">{{ number_format($dashboardMetrics['todayLogs']) }} today</span>
             </div>
             <div class="icon-wrap" style="background:#FFF1F2; color:#E11D48;"><i class="fas fa-history"></i></div>
         </div>
@@ -290,6 +290,28 @@
 
 </div>
 
+<div class="chart-card mb-6">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <div>
+            <p style="font-size:15px; font-weight:700; color:#111827; margin:0;">Website Content Summary</p>
+            <p style="font-size:12px; color:#9CA3AF; margin:3px 0 0;">Live counts from available content models</p>
+        </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:10px;">
+        @foreach($contentStats as $item)
+            <a href="{{ route($item['route']) }}" style="display:flex; align-items:center; gap:10px; padding:12px 14px; border-radius:10px; background:{{ $item['bg'] }}; color:{{ $item['color'] }}; text-decoration:none;">
+                <span style="width:34px; height:34px; border-radius:10px; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                    <i class="fas {{ $item['icon'] }}"></i>
+                </span>
+                <span style="min-width:0;">
+                    <span style="display:block; font-size:12px; color:#6B7280; font-weight:600;">{{ $item['label'] }}</span>
+                    <strong style="font-size:20px; line-height:1; color:#111827;">{{ number_format($item['count']) }}</strong>
+                </span>
+            </a>
+        @endforeach
+    </div>
+</div>
 {{-- ═══════════════════════════════════════════
      CHARTS ROW
 ════════════════════════════════════════════ --}}
@@ -343,62 +365,30 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <div class="avatar">A</div>
-                            <div>
-                                <p style="margin:0; font-weight:600; font-size:13px;">Alice Johnson</p>
-                                <p style="margin:0; font-size:11px; color:#9CA3AF;">alice@example.com</p>
+                @forelse($recentUsers as $user)
+                    @php
+                        $roleTitle = optional($user->roles->first())->title ?? 'No Role';
+                        $initial = strtoupper(substr($user->name ?: 'U', 0, 1));
+                    @endphp
+                    <tr>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <div class="avatar">{{ $initial }}</div>
+                                <div>
+                                    <p style="margin:0; font-weight:600; font-size:13px;">{{ $user->name }}</p>
+                                    <p style="margin:0; font-size:11px; color:#9CA3AF;">{{ $user->email }}</p>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td><span class="pill pill-blue">Admin</span></td>
-                    <td><span class="pill pill-green">Active</span></td>
-                    <td style="color:#9CA3AF; font-size:12px;">2 days ago</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <div class="avatar" style="background:#0EA5E9;">R</div>
-                            <div>
-                                <p style="margin:0; font-weight:600; font-size:13px;">Rahul Sharma</p>
-                                <p style="margin:0; font-size:11px; color:#9CA3AF;">rahul@example.com</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td><span class="pill pill-yellow">Editor</span></td>
-                    <td><span class="pill pill-green">Active</span></td>
-                    <td style="color:#9CA3AF; font-size:12px;">5 days ago</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <div class="avatar" style="background:#10B981;">P</div>
-                            <div>
-                                <p style="margin:0; font-weight:600; font-size:13px;">Priya Singh</p>
-                                <p style="margin:0; font-size:11px; color:#9CA3AF;">priya@example.com</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td><span class="pill" style="background:#F3F4F6; color:#374151;">Viewer</span></td>
-                    <td><span class="pill pill-yellow">Pending</span></td>
-                    <td style="color:#9CA3AF; font-size:12px;">1 week ago</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <div class="avatar" style="background:#8B5CF6;">M</div>
-                            <div>
-                                <p style="margin:0; font-weight:600; font-size:13px;">Mohammed Ali</p>
-                                <p style="margin:0; font-size:11px; color:#9CA3AF;">mali@example.com</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td><span class="pill pill-blue">Moderator</span></td>
-                    <td><span class="pill pill-red">Inactive</span></td>
-                    <td style="color:#9CA3AF; font-size:12px;">2 weeks ago</td>
-                </tr>
+                        </td>
+                        <td><span class="pill pill-blue">{{ $roleTitle }}</span></td>
+                        <td><span class="pill {{ $user->email_verified_at ? 'pill-green' : 'pill-yellow' }}">{{ $user->email_verified_at ? 'Verified' : 'Pending' }}</span></td>
+                        <td style="color:#9CA3AF; font-size:12px;">{{ optional($user->created_at)->diffForHumans() }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="4" style="text-align:center; color:#9CA3AF;">No users found.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
@@ -411,22 +401,20 @@
         </div>
         <div style="display:flex; flex-direction:column; gap:0;">
 
-            @php
-            $activities = [
-                ['icon'=>'fa-user-plus',   'color'=>'#4F46E5', 'bg'=>'#EEF2FF', 'text'=>'New user <strong>Alice</strong> registered', 'time'=>'2 min ago'],
-                ['icon'=>'fa-shield-alt',  'color'=>'#16A34A', 'bg'=>'#DCFCE7', 'text'=>'Role <strong>Editor</strong> updated',         'time'=>'15 min ago'],
-                ['icon'=>'fa-sign-in-alt', 'color'=>'#D97706', 'bg'=>'#FEF3C7', 'text'=>'<strong>Rahul</strong> logged in',             'time'=>'1 hr ago'],
-                ['icon'=>'fa-lock',        'color'=>'#DC2626', 'bg'=>'#FEE2E2', 'text'=>'Failed login attempt detected',               'time'=>'2 hr ago'],
-                ['icon'=>'fa-user-edit',   'color'=>'#0EA5E9', 'bg'=>'#E0F2FE', 'text'=>'Profile updated by <strong>Priya</strong>',   'time'=>'3 hr ago'],
-                ['icon'=>'fa-trash',       'color'=>'#6B7280', 'bg'=>'#F3F4F6', 'text'=>'Permission <strong>post_edit</strong> removed','time'=>'5 hr ago'],
-            ];
-            @endphp
-
-            @foreach($activities as $i => $a)
-            <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 0; {{ $i < count($activities)-1 ? 'border-bottom:1px solid #F3F4F6;' : '' }}">
-                <div style="width:34px; height:34px; border-radius:10px; background:{{ $a['bg'] }}; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                    <i class="fas {{ $a['icon'] }}" style="color:{{ $a['color'] }}; font-size:13px;"></i>
+            @forelse($recentActivities as $i => $activity)
+            <div style="display:flex; gap:12px; align-items:flex-start; padding:10px 0; {{ $i < $recentActivities->count()-1 ? 'border-bottom:1px solid #F3F4F6;' : '' }}">
+                <div style="width:34px; height:34px; border-radius:10px; background:#EEF2FF; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                    <i class="fas fa-history" style="color:#4F46E5; font-size:13px;"></i>
                 </div>
+                <div style="flex:1; min-width:0;">
+                    <p style="font-size:13px; color:#374151; margin:0; line-height:1.4;">{{ $activity->description }}</p>
+                    <p style="font-size:11px; color:#9CA3AF; margin:3px 0 0;">{{ optional($activity->created_at)->diffForHumans() }}</p>
+                </div>
+            </div>
+            @empty
+            <p style="font-size:13px; color:#9CA3AF; margin:0;">No recent activity found.</p>
+            @endforelse
+        </div>
                 <div style="flex:1; min-width:0;">
                     <p style="font-size:13px; color:#374151; margin:0; line-height:1.4;">{!! $a['text'] !!}</p>
                     <p style="font-size:11px; color:#9CA3AF; margin:3px 0 0;">{{ $a['time'] }}</p>
@@ -485,10 +473,10 @@ const lineCtx = document.getElementById('lineChart').getContext('2d');
 const lineChart = new Chart(lineCtx, {
     type: 'line',
     data: {
-        labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+        labels: @json($lastSevenDays->pluck('label')),
         datasets: [{
             label: 'Registrations',
-            data: [18, 35, 22, 48, 31, 57, 42],
+            data: @json($lastSevenDays->pluck('count')),
             borderColor: accentColor,
             backgroundColor: accentColor + '1A',
             borderWidth: 2.5,
@@ -511,8 +499,8 @@ const lineChart = new Chart(lineCtx, {
 
 // Doughnut
 const roleColors = ['#4F46E5','#0EA5E9','#10B981','#F59E0B','#EF4444'];
-const roleLabels = ['Admin','Editor','Moderator','Viewer','Guest'];
-const roleData   = [12, 24, 8, 36, 20];
+const roleLabels = @json($roleDistribution->pluck('title')->map(fn ($title) => $title ?: 'No Title')->values());
+const roleData   = @json($roleDistribution->pluck('users_count')->values());
 const dCtx = document.getElementById('doughnutChart').getContext('2d');
 new Chart(dCtx, {
     type: 'doughnut',
@@ -525,7 +513,7 @@ new Chart(dCtx, {
         cutout: '68%',
         plugins: {
             legend: { display: false },
-            tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` } }
+            tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}` } }
         }
     }
 });
@@ -536,7 +524,7 @@ roleLabels.forEach((l, i) => {
     legendEl.innerHTML += `<div style="display:flex;align-items:center;gap:6px;">
         <span style="width:10px;height:10px;border-radius:3px;background:${roleColors[i]};display:inline-block;"></span>
         <span style="font-size:12px;color:#6B7280;">${l}</span>
-        <span style="font-size:12px;font-weight:700;color:#111827;margin-left:auto;">${roleData[i]}%</span>
+        <span style="font-size:12px;font-weight:700;color:#111827;margin-left:auto;">${roleData[i]}</span>
     </div>`;
 });
 
@@ -644,3 +632,7 @@ document.addEventListener('click', function(e) {
 });
 </script>
 @endsection
+
+
+
+

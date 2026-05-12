@@ -34,7 +34,7 @@
             <div class="profile-hero">
                 <div class="profile-avatar-lg">
                     @if($websiteSetting->logo)
-                        <img src="{{ asset('uploads/website/' . $websiteSetting->logo) }}"
+                        <img src="{{ asset('uploads/settings/' . $websiteSetting->logo) }}"
                              alt="{{ $websiteSetting->site_name }}"
                              style="width:100%;height:100%;object-fit:contain;">
                     @else
@@ -72,7 +72,7 @@
             </div>
 
             <div class="detail-section-body">
-                @foreach(['logo','footer_logo','favicon'] as $field)
+                @foreach(['logo','footer_logo','favicon','og_image'] as $field)
                     <div class="detail-row">
                         <span class="detail-label">
                             {{ ucwords(str_replace('_', ' ', $field)) }}
@@ -80,7 +80,7 @@
 
                         <span class="detail-value">
                             @if($websiteSetting->$field)
-                                <img src="{{ asset('uploads/website/' . $websiteSetting->$field) }}"
+                                <img src="{{ asset('uploads/settings/' . $websiteSetting->$field) }}"
                                      alt="{{ $field }}"
                                      style="width:80px;height:55px;object-fit:contain;border:1px solid #E5E7EB;border-radius:10px;background:#fff;">
                             @else
@@ -106,6 +106,13 @@
             <div class="detail-section-body">
                 @foreach([
                     'email',
+                    'meta_title',
+                    'meta_description',
+                    'meta_keywords',
+                    'meta_author',
+                    'canonical_url',
+                    'og_title',
+                    'og_description',
                     'phone',
                     'alternate_phone',
                     'whatsapp_number',

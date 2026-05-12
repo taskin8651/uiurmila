@@ -62,7 +62,15 @@ class WebsiteSettingController extends Controller
             'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp,svg|max:2048',
             'footer_logo' => 'nullable|image|mimes:jpg,jpeg,png,webp,svg|max:2048',
             'favicon' => 'nullable|image|mimes:jpg,jpeg,png,webp,ico|max:1024',
+            'og_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'site_name' => 'nullable|string|max:255',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
+            'meta_author' => 'nullable|string|max:255',
+            'canonical_url' => 'nullable|string|max:255',
+            'og_title' => 'nullable|string|max:255',
+            'og_description' => 'nullable|string',
             'email' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:255',
             'alternate_phone' => 'nullable|string|max:255',
@@ -92,7 +100,7 @@ class WebsiteSettingController extends Controller
 
     private function handleUploads(Request $request, array &$data, WebsiteSetting $websiteSetting = null)
     {
-        foreach (['logo', 'footer_logo', 'favicon'] as $field) {
+        foreach (['logo', 'footer_logo', 'favicon', 'og_image'] as $field) {
             if ($request->hasFile($field)) {
                 if ($websiteSetting && $websiteSetting->$field) {
                     $this->deleteImage($websiteSetting->$field);
