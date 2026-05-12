@@ -25,15 +25,17 @@
 
                         <span class="section-badge hero-badge">
                             <i class="bi bi-stars"></i>
-                            {{ $about?->hero_badge ?? 'For Social Impact' }}
+                            For Social Impact
                         </span>
 
                         <h1 class="hero-title">
-                            {{ $about?->hero_title ?? 'Building Hope, Empowering Communities' }}
+                            Building Hope, Empowering Communities
                         </h1>
 
                         <p class="hero-text">
-                            {{ $about?->hero_description ?? 'URMILA Development Foundation works for education, healthcare, women empowerment, poverty alleviation, environmental awareness, and community welfare.' }}
+                            URMILA Development Foundation works for education, healthcare,
+                            women empowerment, poverty alleviation, environmental awareness,
+                            and community welfare.
                         </p>
 
                         <div class="hero-buttons">
@@ -56,7 +58,7 @@
                     <div class="hero-image-wrap">
 
                         <div class="hero-image-box">
-                            <img src="{{ $about && $about->intro_image ? asset('uploads/about/' . $about->intro_image) : asset('assets/img/img.jpeg') }}" alt="{{ $about?->intro_title ?? 'URMILA Development Foundation' }}">
+                            <img src="assets/img/img.jpeg" alt="URMILA Development Foundation">
                         </div>
 
                         <div class="hero-small-card">
@@ -65,8 +67,8 @@
                             </div>
 
                             <div>
-                                <h6>{{ $about?->intro_floating_title ?? 'Community Welfare' }}</h6>
-                                <p>{{ $about?->intro_floating_text ?? 'Serving people with care' }}</p>
+                                <h6>Community Welfare</h6>
+                                <p>Serving people with care</p>
                             </div>
                         </div>
 
